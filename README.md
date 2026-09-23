@@ -53,10 +53,31 @@ La tabla muestra los 38 registros en cuatro páginas: 10 vehículos en las tres 
 ## Tecnologías utilizadas
 
 - React 19
-- Vite
+- Vite 8
 - CoreUI React
 - Supabase JavaScript Client
 - Sass
+- Express 5
+
+## Configuración de Vite y servidor
+
+Vite se utiliza para el desarrollo y para generar la compilación de producción:
+
+- El servidor de desarrollo escucha en el puerto `3000`.
+- La aplicación se construye en la carpeta `build/` mediante `vite build`.
+- `base: '/'` permite que la aplicación se publique desde la raíz del dominio.
+- El plugin de React, los alias de `src/` y Autoprefixer están configurados en `vite.config.mjs`.
+
+El proyecto también incluye `package-lock.json`. Este archivo conserva las versiones exactas de las dependencias instaladas para que la instalación local y los despliegues reproduzcan el mismo árbol de paquetes. `package.json` solicita Vite `^8.2.1` y Express `^5.2.1`; el lockfile resuelve actualmente Vite `8.2.2` y Express `5.2.1`.
+
+El archivo `server.cjs` es un servidor Node.js con Express para ejecutar la compilación generada por Vite. Se agregó porque `vite` está orientado al desarrollo y a la construcción del frontend; no es el servidor de producción de la aplicación. Express permite:
+
+- Servir los archivos estáticos de `build/`.
+- Responder en `/health` con `200 OK` para comprobaciones de disponibilidad del servicio.
+- Escuchar en `process.env.PORT`, como requieren muchos servicios de despliegue, y aceptar conexiones externas mediante `0.0.0.0`.
+- Devolver `build/index.html` para las rutas de React, de modo que una URL como `/parqueadero/vehiculos` funcione también al abrirla directamente o al recargarla.
+
+El script `start` de `package.json` ejecuta este servidor con `node server.cjs`. Por eso, antes de iniciarlo debe existir una compilación actualizada en `build/`.
 
 ## Configuración
 
@@ -71,21 +92,41 @@ No se deben publicar `.env.local`, claves secretas ni claves `service_role`.
 
 ## Instalación y ejecución
 
+Instalar las dependencias usando el lockfile:
+
 ```powershell
 npm.cmd install
-npm.cmd start
+```
+
+Para trabajar en desarrollo con Vite:
+
+```powershell
+npm.cmd exec vite
 ```
 
 Abrir en el navegador:
 
 ```text
-http://localhost:5173/parqueadero/vehiculos
+http://localhost:3000/parqueadero/vehiculos
 ```
 
-Para generar la compilación de producción:
+Para generar la compilación y levantar el servidor Express:
 
 ```powershell
 npm.cmd run build
+npm.cmd start
+```
+
+El servidor queda disponible en:
+
+```text
+http://localhost:8080/parqueadero/vehiculos
+```
+
+También se puede cambiar el puerto al iniciar el servidor:
+
+```powershell
+$env:PORT=8081; npm.cmd start
 ```
 
 ## Estructura principal
