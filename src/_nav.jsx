@@ -23,7 +23,7 @@ import {
   cilPuzzle,
   cilSpeedometer,
   cilStar,
-  cilCarAlt
+  cilCarAlt,
 } from '@coreui/icons'
 
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
@@ -85,15 +85,21 @@ const _nav = [
     },
   },
   {
-  component: CNavTitle,
-  name: 'Parqueadero',
-},
-{
-  component: CNavItem,
-  name: 'Vehículos y propietarios',
-  to: '/parqueadero/vehiculos',
-  icon: <CIcon icon={cilCarAlt} customClassName="nav-icon" />,
-}  
+    component: CNavTitle,
+    name: 'Parqueadero',
+  },
+  {
+    component: CNavItem,
+    name: 'Monitor de ingresos',
+    to: '/parqueadero/monitor',
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Vehículos y propietarios',
+    to: '/parqueadero/vehiculos',
+    icon: <CIcon icon={cilCarAlt} customClassName="nav-icon" />,
+  },
 ]
 
 export default _nav

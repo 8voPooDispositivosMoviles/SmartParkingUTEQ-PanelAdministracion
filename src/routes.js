@@ -18,9 +18,8 @@ import React from 'react'
 // Dashboard
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 
-const ListaVehiculos = React.lazy(
-  () => import('./views/parqueadero/ListaVehiculos'),
-)
+const ListaVehiculos = React.lazy(() => import('./views/parqueadero/ListaVehiculos'))
+const MonitorIngresos = React.lazy(() => import('./views/parqueadero/MonitorIngresos'))
 
 /**
  * Array of route configuration objects
@@ -43,6 +42,7 @@ export const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/parqueadero/vehiculos', name: 'Vehículos y propietarios', element: ListaVehiculos },
+  { path: '/parqueadero/monitor', name: 'Monitor de ingresos', element: MonitorIngresos },
 ]
 
 export default routes
