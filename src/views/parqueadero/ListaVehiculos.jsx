@@ -61,7 +61,7 @@ const ListaVehiculos = () => {
         <div>
           <strong>Vehículos y propietarios</strong>
           <div className="small text-body-secondary">
-            Vehículos autorizados en UTEQ Smart Parking
+            Vehículos autorizados en <strong>UTB 2026 </strong> Smart Parking
           </div>
         </div>
 
